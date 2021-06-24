@@ -1,6 +1,7 @@
 package com.codepath.aurora.flixter.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -8,15 +9,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.codepath.aurora.flixter.MovieDetailsActivity;
 import com.codepath.aurora.flixter.R;
 import com.codepath.aurora.flixter.models.Movie;
 
 import org.jetbrains.annotations.NotNull;
+import org.parceler.Parcels;
 
 import java.util.List;
 
@@ -57,7 +61,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder>{
          return movies.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         TextView tvTitle;
         TextView tvOverview;
         ImageView ivPoster;
@@ -66,6 +70,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder>{
             tvTitle = itemView.findViewById(R.id.tvTitle);
             tvOverview = itemView.findViewById(R.id.tvOverview);
             ivPoster = itemView.findViewById(R.id.ivPoster);
+            itemView.setOnClickListener(this); // Sets its own onClick method to be call when it is clicked
         }
 
         public void bind(Movie movie) {
@@ -87,6 +92,27 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder>{
                     //.error(R.drawable.imagenotfound)
                     .into(ivPoster);
 
+        }
+
+        @Override
+        public void onClick(View v) {
+            //Gets item position
+            int position = getAdapterPosition();
+            //Make sure the position is valid
+            if(position != RecyclerView.NO_POSITION){
+                // Get the movie at the position, this won't work if the class is static
+                Movie movieSelected = movies.get(position);
+                //Create intent for the new Activity
+                Intent intent = new Intent(context, MovieDetailsActivity.class);
+                //Serialize the movie using parceler, use its short name as a key, the movie is passed as a extra serialized
+                intent.putExtra(Movie.class.getSimpleName(), Parcels.wrap(movieSelected));
+                // Show the activity
+                context.startActivity(intent);
+
+
+            }else{
+                Toast.makeText(context, "Something is going wrong, choose another movie", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 }
