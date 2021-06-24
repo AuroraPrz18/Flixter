@@ -1,6 +1,7 @@
 package com.codepath.aurora.flixter.adapters;
 
 import android.content.Context;
+import android.content.res.Configuration;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -70,8 +71,21 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder>{
         public void bind(Movie movie) {
             tvTitle.setText(movie.getTitle());
             tvOverview.setText(movie.getOverview());
-            // We add the image (that has the path described in movie.getPosterPath) into the ivPoster with our known context
-            Glide.with(context).load(movie.getPosterPath()).into(ivPoster);
+            String imageURL;
+            //Choosing the URL of the image, depending in the orientation of the device
+            if (context.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+                imageURL =  movie.getBackdropPath();
+            }else{
+                imageURL = movie.getPosterPath();
+            }
+
+            // We add the image (that has the path described in imageURL) into the ivPoster with our known context
+            Glide.with(context)
+                    .load(imageURL)
+                    //.placeholder() -------------------------------------------------------------------- add section 2
+                    //.placeholder(R.drawable.placeholder)
+                    //.error(R.drawable.imagenotfound)
+                    .into(ivPoster);
 
         }
     }
