@@ -5,7 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MovieDetailsActivity">
+    tools:context=".MovieDetailsActivity"
+    android:background="@color/backgroundBlack">
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -14,9 +15,15 @@
             android:id="@+id/headerMovie"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
             android:layout_centerHorizontal="true"
-            android:gravity="center_horizontal">
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:backgroundTint="#ffeb3b"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
             <TextView
                 android:id="@+id/tvTitleMD"
                 android:layout_width="wrap_content"
@@ -29,25 +36,32 @@
                 android:text="Movie Title"
                 android:textAlignment="center"
                 android:textAppearance="@android:style/TextAppearance.Large"
+                android:textColor="@color/titleColor"
+                android:textStyle="bold"
                 tools:layout_editor_absoluteX="0dp" />
 
             <RatingBar
                 android:id="@+id/rbVoteAverage"
-                style="@style/Widget.AppCompat.RatingBar.Small"
+                style="@android:style/Widget.DeviceDefault.RatingBar.Indicator"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tvTitleMD"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentRight="true"
+                android:layout_marginTop="8dp"
+                android:elevation="12dp"
+                android:outlineAmbientShadowColor="@color/white"
+                android:outlineSpotShadowColor="@color/white"
                 android:numStars="5"
-                android:stepSize="0.5"
-
-                />
+                android:progressBackgroundTint="#ba68c8"
+                android:progressTint="#ffeb3b"
+                android:stepSize="0.5" />
         </LinearLayout>
 
         <TextView
             android:id="@+id/tvOverviewMD"
+            style="@style/Widget.AppCompat.TextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/ivPosterMD"
@@ -55,7 +69,12 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            android:text="TextView" />
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:text="TextView"
+            android:textColor="@color/infoColor" />
 
         <ImageView
             android:id="@+id/ivPosterMD"

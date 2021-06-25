@@ -24,6 +24,8 @@ import org.parceler.Parcels;
 
 import java.util.List;
 
+import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
+
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder>{
     Context context; // We will need it to know where the adapter is being constructed from
     List<Movie> movies; // Data
@@ -65,11 +67,14 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder>{
         TextView tvTitle;
         TextView tvOverview;
         ImageView ivPoster;
+        ImageView ivVote_average;
+
         public ViewHolder(@NonNull @NotNull View itemView) {
             super(itemView);
             tvTitle = itemView.findViewById(R.id.tvTitle);
             tvOverview = itemView.findViewById(R.id.tvOverview);
             ivPoster = itemView.findViewById(R.id.ivPoster);
+            ivVote_average = itemView.findViewById(R.id.ivVote_average);
             itemView.setOnClickListener(this); // Sets its own onClick method to be call when it is clicked
         }
 
@@ -77,21 +82,35 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder>{
             tvTitle.setText(movie.getTitle());
             tvOverview.setText(movie.getOverview());
             String imageURL;
+            int radius = 30; //corner radius, higher value = more rounded
+            int margin = 10; //crop margin, set to 0 for corners with no crop
+
             //Choosing the URL of the image, depending in the orientation of the device
             if (context.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
                 imageURL =  movie.getBackdropPath();
+                // We add the image (that has the path described in imageURL) into the ivPoster with our known context
+                Glide.with(context).load(imageURL)
+                        .transform(new RoundedCornersTransformation(radius, margin))
+                        .placeholder(R.drawable.flicks_backdrop_placeholder).
+                        into(ivPoster);
             }else{
                 imageURL = movie.getPosterPath();
+                // We add the image (that has the path described in imageURL) into the ivPoster with our known context
+                Glide.with(context).load(imageURL)
+                        .transform(new RoundedCornersTransformation(radius, margin))
+                        .placeholder(R.drawable.flicks_movie_placeholder)
+                        .into(ivPoster);
             }
 
-            // We add the image (that has the path described in imageURL) into the ivPoster with our known context
-            Glide.with(context)
-                    .load(imageURL)
-                    //.placeholder() -------------------------------------------------------------------- add section 2
-                    //.placeholder(R.drawable.placeholder)
-                    //.error(R.drawable.imagenotfound)
-                    .into(ivPoster);
 
+            //Choosing the ivVote_average icon source, depending in the vote_average
+            if(movie.getVoteAverage()<=4){
+                ivVote_average.setImageResource(R.drawable.ic_bad_24);
+            }else if(movie.getVoteAverage()<=7){
+                ivVote_average.setImageResource(R.drawable.ic_soso_24);
+            }else{
+                ivVote_average.setImageResource(R.drawable.ic_good_24);
+            }
         }
 
         @Override
