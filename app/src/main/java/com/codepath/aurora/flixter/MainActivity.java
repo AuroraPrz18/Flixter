@@ -22,8 +22,7 @@ import java.util.List;
 import okhttp3.Headers;
 
 public class MainActivity extends AppCompatActivity {
-    public static final String API_KEY = "8aaedcad6d727251424a3ce5b524309f";
-    public static final String NOW_PLAYING_URL= "https://api.themoviedb.org/3/movie/now_playing?api_key="+API_KEY;
+    public String NOW_PLAYING_URL;
     public static final String TAG = "MainActivity";
     List<Movie> movies;
     @Override
@@ -32,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         RecyclerView rvMovies = findViewById(R.id.rvMovies);
 
+        NOW_PLAYING_URL= "https://api.themoviedb.org/3/movie/now_playing?api_key="+ getString(R.string.api_key_moviedb);
         movies = new ArrayList<>();
 
         //Create the adapter
