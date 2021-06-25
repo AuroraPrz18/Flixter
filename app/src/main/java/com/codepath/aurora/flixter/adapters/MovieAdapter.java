@@ -7,8 +7,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -17,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.codepath.aurora.flixter.MovieDetailsActivity;
 import com.codepath.aurora.flixter.R;
+import com.codepath.aurora.flixter.databinding.ItemMovieBinding;
 import com.codepath.aurora.flixter.models.Movie;
 
 import org.jetbrains.annotations.NotNull;
@@ -64,23 +63,17 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder>{
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
-        TextView tvTitle;
-        TextView tvOverview;
-        ImageView ivPoster;
-        ImageView ivVote_average;
+        ItemMovieBinding binding;
 
         public ViewHolder(@NonNull @NotNull View itemView) {
             super(itemView);
-            tvTitle = itemView.findViewById(R.id.tvTitle);
-            tvOverview = itemView.findViewById(R.id.tvOverview);
-            ivPoster = itemView.findViewById(R.id.ivPoster);
-            ivVote_average = itemView.findViewById(R.id.ivVote_average);
+            binding = ItemMovieBinding.bind(itemView);
             itemView.setOnClickListener(this); // Sets its own onClick method to be call when it is clicked
         }
 
         public void bind(Movie movie) {
-            tvTitle.setText(movie.getTitle());
-            tvOverview.setText(movie.getOverview());
+            binding.tvTitle.setText(movie.getTitle());
+            binding.tvOverview.setText(movie.getOverview());
             String imageURL;
             int radius = 30; //corner radius, higher value = more rounded
             int margin = 10; //crop margin, set to 0 for corners with no crop
@@ -92,24 +85,23 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder>{
                 Glide.with(context).load(imageURL)
                         .transform(new RoundedCornersTransformation(radius, margin))
                         .placeholder(R.drawable.flicks_backdrop_placeholder).
-                        into(ivPoster);
+                        into(binding.ivPoster);
             }else{
                 imageURL = movie.getPosterPath();
                 // We add the image (that has the path described in imageURL) into the ivPoster with our known context
                 Glide.with(context).load(imageURL)
                         .transform(new RoundedCornersTransformation(radius, margin))
                         .placeholder(R.drawable.flicks_movie_placeholder)
-                        .into(ivPoster);
+                        .into(binding.ivPoster);
             }
-
 
             //Choosing the ivVote_average icon source, depending in the vote_average
             if(movie.getVoteAverage()<=4){
-                ivVote_average.setImageResource(R.drawable.ic_bad_24);
+                binding.ivVoteAverage.setImageResource(R.drawable.ic_bad_24);
             }else if(movie.getVoteAverage()<=7){
-                ivVote_average.setImageResource(R.drawable.ic_soso_24);
+                binding.ivVoteAverage.setImageResource(R.drawable.ic_soso_24);
             }else{
-                ivVote_average.setImageResource(R.drawable.ic_good_24);
+                binding.ivVoteAverage.setImageResource(R.drawable.ic_good_24);
             }
         }
 

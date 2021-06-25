@@ -46,12 +46,12 @@ public class MainActivity extends AppCompatActivity {
 
         //Instance of async HTTP client
         AsyncHttpClient client = new AsyncHttpClient();
-        Log.d(TAG, "hello");
+
         //Making a GET client request(which URL, callback with a response handler)
         client.get(NOW_PLAYING_URL, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int i, Headers headers, JSON json) {
-                Log.d(TAG, "onSuccess");
+                Log.i(TAG, "onSuccess");
                 //Get the actual JSON object
                 JSONObject jsonObject = json.jsonObject;
                 //Get the information that is inside this JSON object (in this case it is an array)
@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(int i, Headers headers, String s, Throwable throwable) {
-                Log.d(TAG, "onFailure",throwable );
+                Log.i(TAG, "onFailure",throwable );
 
             }
         });
