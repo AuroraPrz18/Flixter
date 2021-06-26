@@ -34,30 +34,31 @@ public class Movie {
 
 
     // no-arg, empty constructor required for Parceler
-    public Movie () {}
+    public Movie() {
+    }
 
     public Movie(JSONObject jsonObject, String apiKey) throws JSONException {
         //Converting JSON object
         backdropPath = jsonObject.getString("backdrop_path");
-        posterPath  = jsonObject.getString("poster_path");
-        title  = jsonObject.getString("title");
-        overview  = jsonObject.getString("overview");
+        posterPath = jsonObject.getString("poster_path");
+        title = jsonObject.getString("title");
+        overview = jsonObject.getString("overview");
         voteAverage = jsonObject.getDouble("vote_average");
-        id= jsonObject.getInt("id");
+        id = jsonObject.getInt("id");
         getItsYouTubeKey(id, apiKey);
     }
 
     public static List<Movie> fromJsonArray(JSONArray movieJsonArray, String apiKey) throws JSONException {
         //Turn an JSONArray into a List of Movies
         List<Movie> movies = new ArrayList<>();
-        for(int i = 0; i < movieJsonArray.length(); i++){
+        for (int i = 0; i < movieJsonArray.length(); i++) {
             movies.add(new Movie(movieJsonArray.getJSONObject(i), apiKey));
         }
         return movies;
     }
 
-    public static void getItsYouTubeKey(int id, String apiKey){
-        String URLMovie= "https://api.themoviedb.org/3/movie/"+id+"/videos?api_key="+ apiKey;
+    public static void getItsYouTubeKey(int id, String apiKey) {
+        String URLMovie = "https://api.themoviedb.org/3/movie/" + id + "/videos?api_key=" + apiKey;
 
 
         //Instance of async HTTP client
@@ -73,8 +74,8 @@ public class Movie {
                 try {
                     JSONArray results = jsonObject.getJSONArray("results");
                     //Get the KEY
-                    if(results.length()>0){
-                            Movie.keyYoutube.put(id, results.getJSONObject(0).getString("key"));
+                    if (results.length() > 0) {
+                        Movie.keyYoutube.put(id, results.getJSONObject(0).getString("key"));
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -84,7 +85,7 @@ public class Movie {
 
             @Override
             public void onFailure(int i, Headers headers, String s, Throwable throwable) {
-                Log.e("Movie", "onFailure", throwable );
+                Log.e("Movie", "onFailure", throwable);
             }
         });
     }
@@ -110,7 +111,7 @@ public class Movie {
         return keyYoutube.get(id);
     }
 
-    public String getBackdropPath(){
+    public String getBackdropPath() {
         return String.format("https://image.tmdb.org/t/p/w342/%s", backdropPath);
     }
 

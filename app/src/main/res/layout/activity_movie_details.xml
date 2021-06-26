@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MovieDetailsActivity"
-    android:background="@color/backgroundBlack">
+    android:background="@color/backgroundBlack"
+    tools:context=".MovieDetailsActivity">
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -51,9 +51,9 @@
                 android:layout_alignParentRight="true"
                 android:layout_marginTop="8dp"
                 android:elevation="12dp"
+                android:numStars="5"
                 android:outlineAmbientShadowColor="@color/white"
                 android:outlineSpotShadowColor="@color/white"
-                android:numStars="5"
                 android:progressBackgroundTint="#ba68c8"
                 android:progressTint="#ffeb3b"
                 android:stepSize="0.5" />
@@ -80,12 +80,12 @@
             android:id="@+id/ivPoster"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="16dp"
             android:layout_below="@+id/headerMovie"
             android:layout_alignParentStart="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true">
+            android:layout_alignParentRight="true"
+            android:layout_margin="16dp">
 
             <ImageView
                 android:id="@+id/ivPosterMD"

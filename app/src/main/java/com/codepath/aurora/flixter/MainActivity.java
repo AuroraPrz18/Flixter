@@ -25,13 +25,14 @@ public class MainActivity extends AppCompatActivity {
     public String NOW_PLAYING_URL;
     public static final String TAG = "MainActivity";
     List<Movie> movies;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         RecyclerView rvMovies = findViewById(R.id.rvMovies);
 
-        NOW_PLAYING_URL= "https://api.themoviedb.org/3/movie/now_playing?api_key="+ getString(R.string.api_key_moviedb);
+        NOW_PLAYING_URL = "https://api.themoviedb.org/3/movie/now_playing?api_key=" + getString(R.string.api_key_moviedb);
         movies = new ArrayList<>();
 
         //Create the adapter
@@ -57,11 +58,11 @@ public class MainActivity extends AppCompatActivity {
                 //Get the information that is inside this JSON object (in this case it is an array)
                 try {
                     JSONArray results = jsonObject.getJSONArray("results");
-                    Log.i(TAG, "Results: "+results.toString());
+                    Log.i(TAG, "Results: " + results.toString());
                     //Get the list of movies
                     movies.addAll(Movie.fromJsonArray(results, getString(R.string.api_key_moviedb)));
                     movieAdapter.notifyDataSetChanged();
-                    Log.i(TAG, "Movies: "+movies.size());
+                    Log.i(TAG, "Movies: " + movies.size());
                 } catch (JSONException e) {
                     Log.e(TAG, "Hit json EXCEPTION", e);
                     e.printStackTrace();
@@ -71,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(int i, Headers headers, String s, Throwable throwable) {
-                Log.i(TAG, "onFailure",throwable );
+                Log.i(TAG, "onFailure", throwable);
 
             }
         });

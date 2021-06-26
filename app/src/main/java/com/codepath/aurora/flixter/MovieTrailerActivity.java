@@ -16,8 +16,8 @@ public class MovieTrailerActivity extends YouTubeBaseActivity {
         setContentView(R.layout.activity_movie_trailer);
 
         // temporary test video id
-        String videoIdAux="";
-        if(getIntent()!=null){
+        String videoIdAux = "";
+        if (getIntent() != null) {
             videoIdAux = getIntent().getStringExtra("Key");
         }
         final String videoId = videoIdAux;
@@ -27,7 +27,7 @@ public class MovieTrailerActivity extends YouTubeBaseActivity {
         YouTubePlayerView playerView = (YouTubePlayerView) findViewById(R.id.player);
 
         //Initialize with API key stored in secrets.xml
-        playerView.initialize(getString(R.string.api_key_youtube), new YouTubePlayer.OnInitializedListener(){
+        playerView.initialize(getString(R.string.api_key_youtube), new YouTubePlayer.OnInitializedListener() {
 
             @Override
             public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer youTubePlayer, boolean b) {
