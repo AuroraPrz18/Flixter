@@ -64,7 +64,7 @@
             style="@style/Widget.AppCompat.TextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/ivPosterMD"
+            android:layout_below="@+id/ivPoster"
             android:layout_alignParentStart="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentEnd="true"
@@ -76,16 +76,45 @@
             android:text="TextView"
             android:textColor="@color/infoColor" />
 
-        <ImageView
-            android:id="@+id/ivPosterMD"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/ivPoster"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="16dp"
             android:layout_below="@+id/headerMovie"
             android:layout_alignParentStart="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            tools:srcCompat="@tools:sample/avatars" />
+            android:layout_alignParentRight="true">
+
+            <ImageView
+                android:id="@+id/ivPosterMD"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:onClick="openVideo"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:srcCompat="@tools:sample/avatars" />
+
+            <ImageView
+                android:id="@+id/ivYoutube"
+                android:layout_width="60dp"
+                android:layout_height="50dp"
+                android:alpha="0.8"
+                android:clickable="true"
+                android:elevation="10dp"
+                android:onClick="openVideo"
+                android:src="@drawable/ic_youtube"
+                app:layout_constraintBottom_toBottomOf="@+id/ivPosterMD"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/ivPosterMD" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
     </RelativeLayout>
 
 </ScrollView>

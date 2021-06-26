@@ -1,5 +1,6 @@
 package com.codepath.aurora.flixter;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -39,5 +40,11 @@ public class MovieDetailsActivity extends AppCompatActivity {
         int margin = 10; //crop margin, set to 0 for corners with no crop
         //Glide.with(this).load(movie.getBackdropPath()).centerCrop().transform(new RoundedCornersTransformation(radius, margin)).into(ivPoster);
         Glide.with(this).load(movie.getBackdropPath()).into(binding.ivPosterMD);
+    }
+
+    public void openVideo(View view) {
+        Intent intent = new Intent(this, MovieTrailerActivity.class);
+        intent.putExtra("Key", Movie.getKeyYoutube(movie.getId()));
+        startActivity(intent);
     }
 }

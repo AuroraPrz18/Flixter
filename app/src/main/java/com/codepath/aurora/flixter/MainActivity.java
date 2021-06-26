@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
                     JSONArray results = jsonObject.getJSONArray("results");
                     Log.i(TAG, "Results: "+results.toString());
                     //Get the list of movies
-                    movies.addAll(Movie.fromJsonArray(results));
+                    movies.addAll(Movie.fromJsonArray(results, getString(R.string.api_key_moviedb)));
                     movieAdapter.notifyDataSetChanged();
                     Log.i(TAG, "Movies: "+movies.size());
                 } catch (JSONException e) {
@@ -75,7 +75,6 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-
-
     }
+
 }
